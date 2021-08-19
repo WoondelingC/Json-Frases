@@ -1,37 +1,44 @@
-import React, { Component } from 'react';
-import data from '../data';
-import Boton from './Boton';
+import React from "react";
+import Button from "react-bootstrap/Button";
 
+import '../styles/style.css';
 
-class Frases extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            quotes:[],
-            selectQuoteindex : null,
-        }
-    }
+const Frases = ({ accentColor, handleNewQuote, currentQuote }) => {
+  const { quote, author } = currentQuote;
+  return (
+    <div
+      id="quote-box"
+      className="quote-box"
+      style={{ backgroundColor: "white" }}
+    >
+      <div className="quote-text">
+        <span id="text" className="quote">
+          {quote}
+        </span>
+      </div>
+      <div className="quote-author">
+        <span id="author">-{author}</span>
+      </div>
+      <div className="buttons">
+        <Button
+          id="tweet-quote"
+          className="icon quote-btn transition"
+          style={{ backgroundColor: `${accentColor}` }}
+          href={`https://twitter.com/intent/tweet?text=${quote}-${author}&hashtags=quote`}
+        >
+          
+        </Button>
+        <Button
+          id="new-quote"
+          className="quote-btn transition"
+          onClick={() => handleNewQuote()}
+          style={{ backgroundColor: `${accentColor}` }}
+        >
+          New Quote
+        </Button>
+      </div>
+    </div>
+  );
+};
 
-    componentDidMount() {
-        fetch({data})
-        .then(data => data.json())
-        .then(block => this.setState({block}));
-    }
-    
-
-
-    handlerClickNextFrase() {
-        console.log("hola");
-    }
-
-    render() {
-        console.log(this.state.block);
-        return (
-            <div className="" id="quote-box">
-                <Boton botonDisplayName = "Siguiente Frase" onClick={this.handlerClickNextFrase} />
-            </div>
-        )
-    }
-}
-
-export default Frases
+export default Frases;

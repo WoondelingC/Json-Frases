@@ -1,61 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { random } from 'lodash';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import QuoteMachine from './component/QuoteMachine';
+import React, { useState, useEffect } from 'react';
+import './styles/style.css';
+import Frases from './component/Frases';
+import Spinner from 'react-bootstrap/Spinner'
 
-const styles = {
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100vh',
+const quoteURL = "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json"
+
+const colorsArr = ['4FC1FF', "E8B9AB", 'CB769E', '69995D', 'D2D7DF', '3AA7A3', 'ECA400', '006992', 'AFECE7', '81F499', '890620', 'B6465F', '8ACDEA']
+
+const randomArrVal = (arr) => {
+  console.log(arr)
+  let randomNum = Math.floor(Math.random() * arr.length)
+  console.log(arr[randomNum])
+  return arr[randomNum]
+}
+
+const useFetch = url => {
+  const [data, setData] = useState(null);
+
+  async function fetchData() {
+    const response = await fetch(url);
+    const json = await response.json();
+    setData(json);
   }
+
+  useEffect(() => { fetchData() }, [url]);
+  return data;
 };
 
-function App({ classes }) {
-  const [quotes, setQuotes] = useState([]);
-  const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(null);
-
-  useEffect(async () => {
-    const data = await fetch('https://raw.githubusercontent.com/WoondelingC/Json-Frases/master/src/data.js');
-    const quotes = await data.json();
-    setQuotes(quotes);
-    setSelectedQuoteIndex(random(0, quotes.length - 1));
-  }, []);
-
-  function getSelectedQuote() {
-    if (!quotes.length || !Number.isInteger(selectedQuoteIndex)) {
-      return undefined;
+function App() {
+  const [accentColor, setAccentColor] = useState('#4FC1FF')
+  const quotes = useFetch(quoteURL)
+  const [currentQuote, setCurrentQuote] = useState({ author: '', quote: '' })
+  
+  useEffect(() => {
+    if (quotes) {
+      handleNewQuote()
     }
-    return quotes[selectedQuoteIndex];
-  }
+  }, [quotes])
 
-  /**
-   * Returns an integer representing an index in state.quotes
-   * If state.quotes is empty, returns undefined
-   */
-  function generateNewQuoteIndex() {
-    if (!quotes.length) {
-      return undefined;
-    }
-    return random(0, quotes.length - 1);
-  }
-
-  function assignNewQuoteIndex() {
-    setSelectedQuoteIndex(generateNewQuoteIndex());
+  const handleNewQuote = () => {
+    setAccentColor(`#${randomArrVal(colorsArr)}`)
+    let quoteArr = quotes.quotes
+    setCurrentQuote(randomArrVal(quoteArr))
   }
 
   return (
-    <Grid className={classes.container} id="quote-box" justify="center" container>
-      <Grid xs={11} lg={8} item>
-        {
-          getSelectedQuote() ?
-          <QuoteMachine selectedQuote={getSelectedQuote()} assignNewQuoteIndex={assignNewQuoteIndex} /> :
-          null
-        }
-      </Grid>
-    </Grid>
+    <div className="App" style={{ backgroundColor: `${accentColor}`, color: `${accentColor}` }}>
+      {
+        (currentQuote.quote === "") ?
+          <Spinner className="loading-spinner" animation="grow" variant="light" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+          :
+          <Frases accentColor={accentColor} currentQuote={currentQuote} handleNewQuote={handleNewQuote} />
+      }
+    </div>
   );
 }
 
-export default withStyles(styles)(App);
+export default App;
