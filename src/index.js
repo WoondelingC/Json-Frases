@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-//import Frases from './component/Frases';
+import {Frases} from './component/Frases';
+
 
 
 ReactDOM.render(
     
-    <App />,
+    <Frases />,
   document.getElementById('root')
 );
 

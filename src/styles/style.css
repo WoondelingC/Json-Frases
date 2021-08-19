@@ -1,35 +1,65 @@
-.quote-box {
+*{
+  margin:0px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#main-contenedor{
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: rgb(0, 105, 146);
+}
+
+#quote-box{
+  border-radius: 3px;
+  position: relative;
+  width: 450px;
+  padding: 40px 50px;
   display: flex;
   flex-direction: column;
-  max-width: 80rem;
-  font-size: 2rem;
-  padding: 3rem;
-  justify-content: space-between;
-  border-radius: .5rem;
-    font-size: 4rem;
-      font-weight: 600;
-    }
-    .quote-mark {
-      font-size: 3rem;
-      margin-right: 0.5rem;
-    }
-  
-  .quote-author {
-    text-align: end;
-    margin-bottom: 1.5rem;
-  }
-  .buttons{
-    display: flex;
-    justify-content: space-between;}
-    a {
-      font-size: 3rem;
-      border: none;
-    }
-    button{
-      font-size: 2rem;
-      border: none;
-    }
-
-.transition {
-  transition: all 0.5s ease-in-out;
+  background-color: #fff;
 }
+
+#text{
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#author{
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+#new-quote{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-top: 25px;
+}
+#new-quote button{
+  height: 38px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #3333336e;
+  outline: none;
+  font-size: 0.85em;
+  padding: 8px 18px 6px 18px;
+  opacity: 1;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#new-quote a{
+  height: 25px;
+  border-radius: 3px;
+  background-color: #3333336e;
+  padding: 0px;
+}
+
+#new-quote img{
+  width: 30px;
+  height: 30px;
+  margin-left: -5px;}
