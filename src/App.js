@@ -17,7 +17,7 @@ function App({ classes }) {
   const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(null);
 
   useEffect(async () => {
-    const data = await fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json');
+    const data = await fetch('https://raw.githubusercontent.com/WoondelingC/Json-Frases/master/src/data.js');
     const quotes = await data.json();
     setQuotes(quotes);
     setSelectedQuoteIndex(random(0, quotes.length - 1));

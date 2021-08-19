@@ -1,4 +1,4 @@
-const dbFrases = [
+const data = [
     {
         id:0,
         frase:"Un día sin reír es un día perdido",
@@ -78,4 +78,4 @@ const dbFrases = [
     }
 ]
 
-export default dbFrases
+export default data;
